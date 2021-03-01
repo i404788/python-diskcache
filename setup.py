@@ -1,4 +1,5 @@
 from io import open
+
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
@@ -10,8 +11,10 @@ class Tox(TestCommand):
         TestCommand.finalize_options(self)
         self.test_args = []
         self.test_suite = True
+
     def run_tests(self):
         import tox
+
         errno = tox.cmdline(self.test_args)
         exit(errno)
 
@@ -44,6 +47,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: Implementation :: CPython',
     ),
 )

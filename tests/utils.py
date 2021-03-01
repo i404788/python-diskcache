@@ -18,7 +18,6 @@ def percentile(sequence, percent):
 
 def secs(value):
     units = ['s ', 'ms', 'us', 'ns']
-    pos = 0
 
     if value is None:
         return '  0.000ns'
@@ -60,24 +59,6 @@ def unmount_ramdisk(dev_path, path):
     run('rm', '-r', path)
 
 
-def retry(sql, query):
-    pause = 0.001
-    error = sqlite3.OperationalError
-
-    for _ in range(int(LIMITS[u'timeout'] / pause)):
-        try:
-            sql(query).fetchone()
-        except sqlite3.OperationalError as exc:
-            error = exc
-            time.sleep(pause)
-        else:
-            break
-    else:
-        raise error
-
-    del error
-
-
 def display(name, timings):
     cols = ('Action', 'Count', 'Miss', 'Median', 'P90', 'P99', 'Max', 'Total')
     template = ' '.join(['%9s'] * len(cols))
@@ -96,16 +77,19 @@ def display(name, timings):
         len_total += len(values)
         sum_total += sum(values)
 
-        print(template % (
-            action,
-            len(values),
-            len(timings.get(action + '-miss', [])),
-            secs(percentile(values, 0.5)),
-            secs(percentile(values, 0.9)),
-            secs(percentile(values, 0.99)),
-            secs(percentile(values, 1.0)),
-            secs(sum(values)),
-        ))
+        print(
+            template
+            % (
+                action,
+                len(values),
+                len(timings.get(action + '-miss', [])),
+                secs(percentile(values, 0.5)),
+                secs(percentile(values, 0.9)),
+                secs(percentile(values, 0.99)),
+                secs(percentile(values, 1.0)),
+                secs(sum(values)),
+            )
+        )
 
     totals = ('Total', len_total, '', '', '', '', '', secs(sum_total))
     print(template % totals)

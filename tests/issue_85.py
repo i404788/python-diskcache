@@ -6,13 +6,14 @@ $ python tests/issue_85.py
 """
 
 import collections
-import django
 import os
 import random
 import shutil
 import sqlite3
 import threading
 import time
+
+import django
 
 
 def remove_cache_dir():
@@ -26,6 +27,7 @@ def init_django():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tests.settings')
     django.setup()
     from django.core.cache import cache
+
     shard = cache._cache._shards[0]
 
 
@@ -107,7 +109,7 @@ def run(statements):
             shard._sql(statement)
             if index == 0:
                 values.append(('BEGIN', ident))
-    except sqlite3.OperationalError as exc:
+    except sqlite3.OperationalError:
         values.append(('ERROR', ident))
 
 

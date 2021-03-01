@@ -1,8 +1,13 @@
+-e .
+blue
 coverage
 django==2.2.*
 django_redis
 doc8
-gj
+flake8
+ipython
+jedi==0.17.*  # Remove after IPython bug fixed.
+pickleDB
 pylibmc
 pylint
 pytest
@@ -12,6 +17,7 @@ pytest-env
 pytest-xdist
 rstcheck
 sphinx
+sqlitedict
 tox
 twine
 wheel

@@ -1,13 +1,10 @@
 "Test diskcache.persistent.Index."
 
-import functools as ft
 import pickle
-import pytest
 import shutil
-import sys
 import tempfile
 
-from unittest import mock
+import pytest
 
 import diskcache as dc
 

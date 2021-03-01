@@ -7,13 +7,28 @@ The :doc:`tutorial` provides a helpful walkthrough of most methods.
 """
 
 from .core import (
-    Cache, Disk, EmptyDirWarning, JSONDisk, UnknownFileWarning, Timeout
+    DEFAULT_SETTINGS,
+    ENOVAL,
+    EVICTION_POLICY,
+    UNKNOWN,
+    Cache,
+    Disk,
+    EmptyDirWarning,
+    JSONDisk,
+    Timeout,
+    UnknownFileWarning,
 )
-from .core import DEFAULT_SETTINGS, ENOVAL, EVICTION_POLICY, UNKNOWN
 from .fanout import FanoutCache
 from .persistent import Deque, Index
-from .recipes import Averager, BoundedSemaphore, Lock, RLock
-from .recipes import barrier, memoize_stampede, throttle
+from .recipes import (
+    Averager,
+    BoundedSemaphore,
+    Lock,
+    RLock,
+    barrier,
+    memoize_stampede,
+    throttle,
+)
 
 __all__ = [
     'Averager',
@@ -40,14 +55,15 @@ __all__ = [
 
 try:
     from .djangocache import DjangoCache  # noqa
+
     __all__.append('DjangoCache')
 except Exception:  # pylint: disable=broad-except
     # Django not installed or not setup so ignore.
     pass
 
 __title__ = 'diskcache'
-__version__ = '5.1.0'
-__build__ = 0x050100
+__version__ = '5.2.1'
+__build__ = 0x050201
 __author__ = 'Grant Jenks'
 __license__ = 'Apache 2.0'
-__copyright__ = 'Copyright 2016-2020 Grant Jenks'
+__copyright__ = 'Copyright 2016-2021 Grant Jenks'
