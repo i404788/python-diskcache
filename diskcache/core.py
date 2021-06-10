@@ -674,6 +674,8 @@ class Cache:
                     if diff > 60:
                         raise
                     time.sleep(0.001)
+                except SystemExit:
+                    raise
 
         return _execute_with_retry
 
